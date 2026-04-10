@@ -437,11 +437,39 @@ function render(){
 
 function renderWelcome(){
   const ps=lp(),ids=Object.keys(ps).sort((a,b)=>(ps[b].created||0)-(ps[a].created||0));
+  const hasProfiles=ids.length>0;
   return`<div class="welcome-screen">
-    <div class="fade-up" style="margin-bottom:8px"><img src="${LOGO_MD}" style="width:72px;height:72px;border-radius:16px" alt="SMARTFLOW"></div>
+    <!-- Logo & Branding -->
+    <div class="fade-up" style="margin-bottom:16px;position:relative">
+      <div style="width:88px;height:88px;border-radius:22px;background:linear-gradient(135deg,rgba(30,100,220,0.15),rgba(45,212,168,0.1));display:flex;align-items:center;justify-content:center;margin:0 auto">
+        <img src="${LOGO_MD}" style="width:64px;height:64px" alt="SMARTFLOW">
+      </div>
+    </div>
     <div class="welcome-title fade-up d1">SMARTFLOW</div>
-    <div class="welcome-sub fade-up d2">בחר פרופיל או צור חדש</div>
-    <div class="profile-card-select fade-up d3">
+    <div class="fade-up d2" style="margin-bottom:8px">
+      <div style="font-size:15px;color:var(--text2);font-weight:400;line-height:1.5">מערכת חכמה לניהול</div>
+      <div style="font-size:15px;font-weight:600;letter-spacing:0.5px">
+        <span style="color:var(--green)">הכנסות</span>
+        <span style="color:var(--text3);margin:0 6px">·</span>
+        <span style="color:var(--red)">הוצאות</span>
+        <span style="color:var(--text3);margin:0 6px">·</span>
+        <span style="color:var(--accent)">תקציב</span>
+      </div>
+    </div>
+    <div class="fade-up d3" style="display:flex;gap:16px;margin:16px 0 28px;direction:rtl">
+      <div style="text-align:center"><div style="font-size:18px;margin-bottom:2px">📊</div><div style="font-size:10px;color:var(--text3)">גרפים</div></div>
+      <div style="text-align:center"><div style="font-size:18px;margin-bottom:2px">💕</div><div style="font-size:10px;color:var(--text3)">שיתוף זוגי</div></div>
+      <div style="text-align:center"><div style="font-size:18px;margin-bottom:2px">📱</div><div style="font-size:10px;color:var(--text3)">מותאם לנייד</div></div>
+      <div style="text-align:center"><div style="font-size:18px;margin-bottom:2px">🔒</div><div style="font-size:10px;color:var(--text3)">פרטיות מלאה</div></div>
+    </div>
+
+    ${hasProfiles?`
+      <div style="font-size:13px;color:var(--text3);margin-bottom:12px;font-weight:500">בחר פרופיל</div>
+    `:`
+      <div style="font-size:13px;color:var(--text3);margin-bottom:12px;font-weight:500">התחל עכשיו — צור את הפרופיל הראשון שלך</div>
+    `}
+
+    <div class="profile-card-select fade-up d4">
       ${ids.map(id=>{const p=ps[id];return`
         <div class="profile-option" onclick="selectProfile('${id}')">
           <div class="profile-avatar" style="background:${p.color}">${p.name.charAt(0)}</div>
@@ -453,16 +481,23 @@ function renderWelcome(){
         </div>`;}).join('')}
       <button class="new-profile-btn" onclick="S.screen='create';S.newName='';S.newMode='personal';S.partnerCode='';render()">➕ פרופיל חדש</button>
     </div>
+
+    <div class="fade-up d4" style="margin-top:24px;font-size:10px;color:var(--text3);opacity:0.6">v2.0 · הנתונים נשמרים במכשיר שלך בלבד</div>
   </div>`;
 }
 
 function renderCreate(){
   return`<div class="create-profile fade-up">
-    <div style="text-align:center;margin-bottom:24px">
-      <div style="margin-bottom:4px"><img src="${LOGO_MD}" style="width:64px;height:64px;border-radius:14px" alt="SMARTFLOW"></div>
-      <div class="create-title">יצירת פרופיל</div>
-      <div class="create-sub">הגדר את הפרופיל שלך</div>
+    <div style="text-align:center;margin-bottom:28px">
+      <div style="width:72px;height:72px;border-radius:18px;background:linear-gradient(135deg,rgba(30,100,220,0.15),rgba(45,212,168,0.1));display:flex;align-items:center;justify-content:center;margin:0 auto 12px">
+        <img src="${LOGO_MD}" style="width:52px;height:52px" alt="SMARTFLOW">
+      </div>
+      <div style="font-size:24px;font-weight:800;letter-spacing:1px;background:linear-gradient(135deg,var(--accent),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px">SMARTFLOW</div>
+      <div style="font-size:13px;color:var(--text2);margin-bottom:2px">מערכת חכמה לניהול הכנסות והוצאות</div>
+      <div style="width:40px;height:2px;background:linear-gradient(90deg,var(--accent),var(--green));border-radius:1px;margin:12px auto 0"></div>
     </div>
+    <div class="create-title">יצירת פרופיל</div>
+    <div class="create-sub">הגדר את הפרופיל שלך כדי להתחיל</div>
     <div class="form-group">
       <label class="form-label">שם</label>
       <input class="form-input" placeholder="הכנס את שמך..." value="${S.newName}" oninput="S.newName=this.value" id="nameInput">
