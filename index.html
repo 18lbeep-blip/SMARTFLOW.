@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="SMARTFLOW">
+<meta name="theme-color" content="#0B0B10">
+<meta name="description" content="SMARTFLOW - ניהול הכנסות והוצאות חכם">
+<title>SMARTFLOW</title>
+<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiU01BUlRGTE9XIiwic2hvcnRfbmFtZSI6IlNNQVJURkxPVyIsImRlc2NyaXB0aW9uIjoi16DXmdeU15XXnCDXlNeb16DXodec15XXqiDXldeU15XXpteQ15XXqiDXl9eb150iLCJzdGFydF91cmwiOiIuIiwiZGlzcGxheSI6InN0YW5kYWxvbmUiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiIzBCMEIxMCIsInRoZW1lX2NvbG9yIjoiIzBCMEIxMCIsImljb25zIjpbeyJzcmMiOiJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUI0Yld4dWN6MGlhSFIwY0RvdkwzZDNkeTUzTXk1dmNtY3ZNakF3TUM5emRtY2lJSFpwWlhkQ2IzZzlJakFnTUNBeE9USWdNVGt5SWlCM2FXUjBhRDBpTVRreUlpQm9aV2xuYUhROUlqRTVNaUkrUEhKbFkzUWdkMmxrZEdnOUlqRTVNaUlnYUdWcFoyaDBQU0l4T1RJaUlISjRQU0l6TWlJZ1ptbHNiRDBpSXpGQk1VRXlOQ0l2UGp4MFpYaDBJSGc5SWprMklpQjVQU0l4TVRJaUlHWnZiblF0YzJsNlpUMGlOREFpSUdacGJHdzlJaU0yUXpZelJrWWlJSFJsZUhRdFlXNWphRzl5UFNKdGFXUmtiR1VpSUdadmJuUXRkMlZwWjJoMFBTSTNNREFpSUdadmJuUXRabUZ0YVd4NVBTSlRZVzV6TFhObGNtbG1JajVUUmp3dmRHVjRkRDQ4TDNOMlp6ND0iLCJzaXplcyI6IjE5MngxOTIiLCJ0eXBlIjoiaW1hZ2Uvc3ZnK3htbCJ9XX0=">
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTIgMTkyIiB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiI+PHJlY3Qgd2lkdGg9IjE5MiIgaGVpZ2h0PSIxOTIiIHJ4PSIzMiIgZmlsbD0iIzFBMUEyNCIvPjx0ZXh0IHg9Ijk2IiB5PSIxMTIiIGZvbnQtc2l6ZT0iNDAiIGZpbGw9IiM2QzYzRkYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtd2VpZ2h0PSI3MDAiIGZvbnQtZmFtaWx5PSJTYW5zLXNlcmlmIj5TRjwvdGV4dD48L3N2Zz4=">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --bg: #0B0B10;
+  --bg2: #111118;
+  --card: #1A1A24;
+  --card-hover: #22222E;
+  --border: #2A2A38;
+  --accent: #6C63FF;
+  --accent-light: #8B84FF;
+  --accent-dim: rgba(108,99,255,0.12);
+  --green: #2DD4A8;
+  --green-dim: rgba(45,212,168,0.12);
+  --red: #FF6B6B;
+  --red-dim: rgba(255,107,107,0.12);
+  --yellow: #FFD93D;
+  --orange: #FF8C42;
+  --orange-dim: rgba(255,140,66,0.12);
+  --pink: #FF6B9D;
+  --pink-dim: rgba(255,107,157,0.12);
+  --text: #E8E8F0;
+  --text2: #8888A0;
+  --text3: #55556A;
+  --radius: 14px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  font-family: 'Rubik', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  direction: rtl;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+@keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+@keyframes scaleIn { from { opacity:0; transform:scale(0.92); } to { opacity:1; transform:scale(1); } }
+@keyframes slideUp { from { transform:translateY(100%); } to { transform:translateY(0); } }
+@keyframes glow { 0%,100%{ box-shadow:0 0 20px rgba(108,99,255,0.15); } 50%{ box-shadow:0 0 35px rgba(108,99,255,0.3); } }
+
+.fade-up { animation: fadeUp 0.5s ease forwards; opacity:0; }
+.d1 { animation-delay: 80ms; }
+.d2 { animation-delay: 160ms; }
+.d3 { animation-delay: 240ms; }
+.d4 { animation-delay: 320ms; }
+
+.app {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: calc(var(--safe-top) + 12px) 16px calc(var(--safe-bottom) + 90px);
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.welcome-screen {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-height: 100vh; min-height: 100dvh; padding: 40px 24px; text-align: center;
+}
+.welcome-logo { font-size: 48px; margin-bottom: 8px; }
+.welcome-title {
+  font-size: 36px; font-weight: 800; letter-spacing: 2px;
+  background: linear-gradient(135deg, var(--accent), var(--green));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 8px;
+}
+.welcome-sub { color: var(--text3); font-size: 14px; margin-bottom: 40px; }
+
+.profile-card-select { width: 100%; max-width: 360px; }
+.profile-option {
+  display: flex; align-items: center; gap: 14px;
+  background: var(--card); border: 1.5px solid var(--border); border-radius: 16px;
+  padding: 18px 20px; margin-bottom: 12px; cursor: pointer; transition: all 0.2s; text-align: right;
+}
+.profile-option:active { transform: scale(0.97); border-color: var(--accent); }
+.profile-avatar {
+  width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 22px; font-weight: 700; color: #fff; flex-shrink: 0;
+}
+.profile-name { font-size: 16px; font-weight: 600; }
+.profile-meta { font-size: 12px; color: var(--text3); margin-top: 2px; }
+
+.new-profile-btn {
+  display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 16px;
+  background: var(--accent-dim); border: 1.5px dashed var(--accent); border-radius: 16px;
+  color: var(--accent); font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer; margin-top: 4px; transition: all 0.2s;
+}
+.new-profile-btn:active { transform: scale(0.97); }
+
+.create-profile { width: 100%; max-width: 400px; margin: 0 auto; padding: 40px 24px; }
+.create-title { font-size: 22px; font-weight: 700; text-align: center; margin-bottom: 8px; }
+.create-sub { font-size: 13px; color: var(--text3); text-align: center; margin-bottom: 32px; }
+
+.avatar-picker { display: flex; justify-content: center; gap: 12px; margin-bottom: 28px; flex-wrap: wrap; }
+.avatar-choice {
+  width: 52px; height: 52px; border-radius: 50%; border: 3px solid transparent;
+  display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer; transition: all 0.2s;
+}
+.avatar-choice.active { border-color: #fff; transform: scale(1.12); box-shadow: 0 4px 16px rgba(0,0,0,0.4); }
+.avatar-choice:active { transform: scale(0.95); }
+
+.form-group { margin-bottom: 18px; }
+.form-label { font-size: 12px; color: var(--text2); margin-bottom: 6px; display: block; }
+.form-input {
+  width: 100%; background: var(--bg); border: 1.5px solid var(--border); color: var(--text);
+  padding: 13px 16px; border-radius: 12px; font-family: inherit; font-size: 15px; direction: rtl; transition: border-color 0.2s;
+}
+.form-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-dim); }
+.form-input::placeholder { color: var(--text3); }
+
+.mode-toggle { display: flex; gap: 10px; margin-bottom: 24px; }
+.mode-card {
+  flex: 1; background: var(--card); border: 1.5px solid var(--border); border-radius: 14px;
+  padding: 18px 14px; text-align: center; cursor: pointer; transition: all 0.2s;
+}
+.mode-card.active { border-color: var(--accent); background: var(--accent-dim); }
+.mode-card:active { transform: scale(0.96); }
+.mode-icon { font-size: 28px; margin-bottom: 6px; }
+.mode-label { font-size: 13px; font-weight: 600; }
+.mode-desc { font-size: 10px; color: var(--text3); margin-top: 4px; line-height: 1.4; }
+
+.primary-btn {
+  width: 100%; padding: 15px; border: none; border-radius: 14px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-light));
+  color: #fff; font-family: inherit; font-weight: 700; font-size: 16px; cursor: pointer; margin-top: 8px; transition: all 0.2s;
+}
+.primary-btn:active { transform: scale(0.97); }
+.primary-btn:disabled { opacity: 0.4; pointer-events: none; }
+.secondary-btn {
+  width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 12px;
+  background: transparent; color: var(--text2); font-family: inherit; font-weight: 500; font-size: 14px; cursor: pointer; margin-top: 10px;
+}
+
+.header { display: flex; align-items: center; justify-content: space-between; padding: 14px 0 18px; }
+.header-right { display: flex; align-items: center; gap: 10px; }
+.header-avatar {
+  width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 15px; font-weight: 700; color: #fff; cursor: pointer; transition: transform 0.2s;
+}
+.header-avatar:active { transform: scale(0.9); }
+.logo {
+  font-size: 22px; font-weight: 800; letter-spacing: 1px;
+  background: linear-gradient(135deg, var(--accent), var(--green));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.logo-sub { font-size: 10px; color: var(--text3); }
+.couple-badge {
+  display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 20px;
+  background: var(--pink-dim); color: var(--pink); font-size: 11px; font-weight: 600;
+}
+
+.partner-banner {
+  background: linear-gradient(135deg, var(--pink-dim), var(--accent-dim));
+  border: 1px solid rgba(255,107,157,0.25); border-radius: var(--radius);
+  padding: 14px 16px; margin-bottom: 16px; display: flex; align-items: center; gap: 12px;
+}
+.partner-avatars { display: flex; }
+.partner-av {
+  width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; color: #fff; border: 2px solid var(--bg);
+}
+.partner-av:nth-child(2) { margin-right: -10px; }
+.partner-text { flex:1; }
+.partner-title { font-size: 13px; font-weight: 600; }
+.partner-sub { font-size: 11px; color: var(--text3); }
+
+.stats { display: flex; gap: 10px; margin-bottom: 18px; }
+.stat-card {
+  flex: 1; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 14px 12px; position: relative; overflow: hidden; transition: transform 0.2s;
+}
+.stat-card:active { transform: scale(0.97); }
+.stat-bar { position:absolute; top:0; left:0; right:0; height:3px; border-radius: var(--radius) var(--radius) 0 0; }
+.stat-icon { font-size: 18px; margin-bottom: 6px; }
+.stat-label { font-size: 10px; color: var(--text2); margin-bottom: 3px; }
+.stat-value { font-size: 18px; font-weight: 700; letter-spacing: -0.5px; }
+
+.chart-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 16px; margin-bottom: 12px;
+}
+.chart-title { font-size: 14px; font-weight: 600; margin-bottom: 12px; }
+canvas { width: 100% !important; height: auto !important; }
+
+.legend { display: flex; flex-direction: column; gap: 6px; margin-top: 12px; }
+.legend-item { display: flex; align-items: center; justify-content: space-between; font-size: 12px; padding: 5px 8px; border-radius: 8px; }
+.legend-dot { width: 9px; height: 9px; border-radius: 3px; margin-left: 8px; flex-shrink:0; }
+.legend-name { flex: 1; }
+.legend-val { font-weight: 600; color: var(--text2); font-size: 11px; }
+
+.search-bar {
+  background: var(--card); border: 1.5px solid var(--border); color: var(--text); width: 100%;
+  padding: 11px 14px; border-radius: 12px; font-family: inherit; font-size: 14px; margin-bottom: 10px; direction: rtl; transition: border-color 0.2s;
+}
+.search-bar:focus { outline:none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-dim); }
+.search-bar::placeholder { color: var(--text3); }
+
+.filter-bar { display: flex; gap: 4px; margin-bottom: 12px; }
+.filter-btn {
+  flex: 1; padding: 8px; border: 1px solid var(--border); background: var(--card); color: var(--text3);
+  border-radius: 8px; font-family: inherit; font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.2s;
+}
+.filter-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+.tx-list { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+.tx-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 13px 14px; border-bottom: 1px solid var(--border); transition: background 0.15s;
+}
+.tx-row:last-child { border-bottom: none; }
+.tx-row:active { background: var(--card-hover); }
+.tx-icon {
+  width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center;
+  font-size: 16px; margin-left: 10px; flex-shrink: 0;
+}
+.tx-info { flex: 1; min-width: 0; }
+.tx-desc { font-size: 13px; font-weight: 500; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.tx-meta { font-size: 10px; color: var(--text3); margin-top: 2px; display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+.tx-amount { font-size: 15px; font-weight: 700; flex-shrink:0; margin-right: 6px; }
+.tx-owner-dot {
+  width: 14px; height: 14px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
+  font-size: 7px; font-weight: 700; color: #fff; flex-shrink: 0;
+}
+.tx-delete {
+  background: none; border:none; color: var(--text3); font-size: 13px; cursor:pointer;
+  padding: 5px; border-radius: 6px; margin-right: 2px; transition: all 0.2s; flex-shrink:0;
+}
+.tx-delete:active { background: var(--red-dim); color: var(--red); }
+.badge { display: inline-block; padding: 2px 7px; border-radius: 10px; font-size: 9px; font-weight: 600; }
+.empty-state { text-align: center; padding: 36px 20px; color: var(--text3); }
+.empty-icon { font-size: 32px; margin-bottom: 6px; }
+.tx-count { text-align:center; margin-top:10px; font-size:11px; color: var(--text3); }
+
+.bottom-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; background: var(--bg2);
+  border-top: 1px solid var(--border); display: flex; justify-content: center;
+  padding: 0 0 var(--safe-bottom); z-index: 50; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+}
+.nav-btn {
+  flex: 1; max-width: 100px; padding: 9px 0 7px; border: none; background: transparent;
+  color: var(--text3); font-family: inherit; font-size: 10px; cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; gap: 2px; transition: color 0.2s;
+}
+.nav-btn.active { color: var(--accent); }
+.nav-btn .nav-icon { font-size: 20px; }
+
+.fab {
+  position: fixed; bottom: calc(66px + var(--safe-bottom)); left: 50%; transform: translateX(-50%);
+  width: 54px; height: 54px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-light));
+  border: none; color: #fff; font-size: 28px; cursor: pointer; z-index: 60;
+  box-shadow: 0 6px 24px rgba(108,99,255,0.4); display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s; animation: glow 3s ease infinite;
+}
+.fab:active { transform: translateX(-50%) scale(0.9); }
+
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.65); backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); z-index: 100; display: flex; align-items: flex-end; justify-content: center;
+}
+.modal-sheet {
+  background: var(--card); border: 1px solid var(--border); border-radius: 24px 24px 0 0;
+  width: 100%; max-width: 520px; padding: 18px 20px calc(18px + var(--safe-bottom));
+  animation: slideUp 0.35s cubic-bezier(0.16,1,0.3,1); max-height: 92vh; max-height: 92dvh; overflow-y: auto;
+}
+.modal-handle { width: 36px; height: 4px; background: var(--border); border-radius: 2px; margin: 0 auto 14px; }
+.modal-title { font-size: 17px; font-weight: 700; margin-bottom: 18px; text-align: center; }
+
+.type-toggle { display: flex; gap: 6px; background: var(--bg); border-radius: 12px; padding: 4px; margin-bottom: 16px; }
+.type-btn {
+  flex: 1; padding: 10px; border: none; border-radius: 10px; font-family: inherit; font-weight: 600;
+  font-size: 13px; cursor: pointer; transition: all 0.2s; background: transparent; color: var(--text3);
+}
+.type-btn.active-income { background: var(--green); color: #fff; }
+.type-btn.active-expense { background: var(--red); color: #fff; }
+
+.cat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; }
+.cat-btn {
+  padding: 9px 4px; border: 1.5px solid var(--border); border-radius: 10px; background: var(--bg);
+  color: var(--text2); font-family: inherit; font-size: 10px; cursor: pointer; text-align: center;
+  transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 3px;
+}
+.cat-btn .cat-emoji { font-size: 18px; }
+.cat-btn.active { border-color: var(--accent); background: var(--accent-dim); color: var(--accent); }
+
+.submit-btn {
+  width: 100%; padding: 14px; border: none; border-radius: 12px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-light));
+  color: #fff; font-family: inherit; font-weight: 700; font-size: 15px; cursor: pointer; margin-top: 8px; transition: all 0.2s;
+}
+.submit-btn:active { transform: scale(0.97); }
+
+.settings-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 12px; }
+.settings-item {
+  display: flex; align-items: center; justify-content: space-between; padding: 15px 16px;
+  border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.15s;
+}
+.settings-item:last-child { border-bottom: none; }
+.settings-item:active { background: var(--card-hover); }
+.settings-icon { font-size: 18px; margin-left: 12px; }
+.settings-label { flex:1; font-size: 13px; }
+.settings-arrow { color: var(--text3); font-size: 14px; }
+
+.share-code-box { background: var(--bg); border: 2px dashed var(--accent); border-radius: 14px; padding: 20px; text-align: center; margin: 16px 0; }
+.share-code { font-size: 32px; font-weight: 800; letter-spacing: 6px; color: var(--accent); font-family: monospace; margin: 8px 0; }
+.share-code-label { font-size: 12px; color: var(--text3); }
+.copy-btn {
+  display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; background: var(--accent);
+  color: #fff; border: none; border-radius: 10px; font-family: inherit; font-weight: 600; font-size: 13px; cursor: pointer; margin-top: 10px;
+}
+.copy-btn:active { transform: scale(0.95); }
+
+.install-banner {
+  background: linear-gradient(135deg, var(--accent-dim), rgba(45,212,168,0.08));
+  border: 1px solid var(--accent); border-radius: var(--radius); padding: 14px 16px;
+  margin-bottom: 16px; display: flex; align-items: center; gap: 10px; animation: fadeUp 0.5s ease forwards;
+}
+.install-btn {
+  padding: 7px 14px; background: var(--accent); color: #fff; border: none; border-radius: 8px;
+  font-family: inherit; font-weight: 600; font-size: 12px; cursor: pointer; flex-shrink: 0;
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const LOGO_SM='data:image/png;base64,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';
+const LOGO_MD='data:image/png;base64,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';
+const PROFILES_KEY='sf_profiles',ACTIVE_KEY='sf_active';
+const CATS={
+  expense:[{id:'food',name:'מזון',icon:'🛒'},{id:'housing',name:'דיור',icon:'🏠'},{id:'transport',name:'תחבורה',icon:'🚗'},{id:'health',name:'בריאות',icon:'💊'},{id:'fun',name:'בילויים',icon:'🎬'},{id:'clothes',name:'ביגוד',icon:'👕'},{id:'edu',name:'חינוך',icon:'📚'},{id:'other_e',name:'אחר',icon:'📌'}],
+  income:[{id:'salary',name:'משכורת',icon:'💼'},{id:'freelance',name:'פרילנס',icon:'💻'},{id:'invest',name:'השקעות',icon:'📈'},{id:'gift',name:'מתנות',icon:'🎁'},{id:'other_i',name:'אחר',icon:'📌'}]
+};
+const PIE_COLORS=['#6C63FF','#2DD4A8','#FF6B6B','#FFD93D','#FF8C42','#45B7D1','#96E6A1','#DDA0DD'];
+const AVATAR_COLORS=['#6C63FF','#2DD4A8','#FF6B6B','#FFD93D','#FF8C42','#45B7D1','#FF6B9D','#96E6A1'];
+const MONTHS=['ינו','פבר','מרץ','אפר','מאי','יונ','יול','אוג','ספט','אוק','נוב','דצמ'];
+
+function ci(catId){const a=[...CATS.expense,...CATS.income];return a.find(c=>c.id===catId)||{id:catId,name:catId,icon:'📌'};}
+function fm(n){return '₪'+Math.abs(n).toLocaleString('he-IL');}
+function fd(d){const dt=new Date(d);return dt.getDate()+' '+MONTHS[dt.getMonth()];}
+function gid(){return Date.now().toString(36)+Math.random().toString(36).substr(2,5);}
+function gc(){return Math.random().toString(36).substr(2,6).toUpperCase();}
+
+function lp(){try{const d=JSON.parse(localStorage.getItem(PROFILES_KEY));if(d&&typeof d==='object')return d;}catch(e){}return{};}
+function sp(p){localStorage.setItem(PROFILES_KEY,JSON.stringify(p));}
+function gai(){return localStorage.getItem(ACTIVE_KEY);}
+function sai(id){localStorage.setItem(ACTIVE_KEY,id);}
+function gp(id){return lp()[id]||null;}
+
+function createProfile(name,color,mode,partnerCode){
+  const ps=lp(),id=gid(),code=gc();
+  let coupleId=null;
+  if(mode==='couple'&&partnerCode){
+    const pid=Object.keys(ps).find(k=>ps[k].code===partnerCode);
+    if(pid){coupleId=ps[pid].coupleId||gid();ps[pid].coupleId=coupleId;ps[pid].mode='couple';}
+    else coupleId=gid();
+  }else if(mode==='couple')coupleId=gid();
+  ps[id]={name,color,mode,code,coupleId,transactions:sampleData(id),created:Date.now()};
+  sp(ps);sai(id);return id;
+}
+
+function getPartner(pid){
+  const ps=lp(),me=ps[pid];
+  if(!me||!me.coupleId)return null;
+  const pk=Object.keys(ps).find(k=>k!==pid&&ps[k].coupleId===me.coupleId);
+  return pk?{id:pk,...ps[pk]}:null;
+}
+
+function allTx(pid){
+  const ps=lp(),me=ps[pid];if(!me)return[];
+  let txs=[...(me.transactions||[])];
+  if(me.mode==='couple'&&me.coupleId){
+    const pk=Object.keys(ps).find(k=>k!==pid&&ps[k].coupleId===me.coupleId);
+    if(pk&&ps[pk].transactions)txs=[...txs,...ps[pk].transactions];
+  }
+  return txs;
+}
+
+function addTx(pid,tx){const ps=lp();if(!ps[pid])return;tx.owner=pid;ps[pid].transactions.unshift(tx);sp(ps);}
+
+function delTx(pid,txId){
+  const ps=lp();
+  if(ps[pid])ps[pid].transactions=ps[pid].transactions.filter(t=>t.id!==txId);
+  const me=ps[pid];
+  if(me&&me.coupleId)Object.keys(ps).forEach(k=>{if(k!==pid&&ps[k].coupleId===me.coupleId)ps[k].transactions=ps[k].transactions.filter(t=>t.id!==txId);});
+  sp(ps);
+}
+
+function delProfile(id){const ps=lp();delete ps[id];sp(ps);if(gai()===id)localStorage.removeItem(ACTIVE_KEY);}
+
+function sampleData(oid){return[];}
+
+const ADMIN_PASS='smartflow2026';
+
+let S={screen:'loading',tab:'dashboard',filter:'all',search:'',showModal:false,formType:'expense',formCat:'food',formAmount:'',formDesc:'',formDate:new Date().toISOString().split('T')[0],newName:'',newColor:AVATAR_COLORS[0],newMode:'personal',partnerCode:'',showInstall:false,deferredPrompt:null,adminAuth:false,showAdminLogin:false};
+
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();S.deferredPrompt=e;S.showInstall=true;render();});
+async function handleInstall(){if(S.deferredPrompt){S.deferredPrompt.prompt();S.deferredPrompt=null;S.showInstall=false;render();}}
+
+function init(){
+  const aid=gai();
+  if(aid&&gp(aid))S.screen='main';
+  else{const ps=lp();S.screen=Object.keys(ps).length>0?'welcome':'create';}
+  render();
+}
+
+function render(){
+  const app=document.getElementById('app');
+  if(S.screen==='admin'){app.innerHTML=renderAdmin();return;}
+  if(S.screen==='welcome'){app.innerHTML=renderWelcome();return;}
+  if(S.screen==='create'){app.innerHTML=renderCreate();return;}
+  if(S.screen==='main'){renderMain();return;}
+}
+
+function renderWelcome(){
+  const ps=lp(),ids=Object.keys(ps).sort((a,b)=>(ps[b].created||0)-(ps[a].created||0));
+  return`<div class="welcome-screen">
+    <div class="fade-up" style="margin-bottom:8px"><img src="${LOGO_MD}" style="width:72px;height:72px;border-radius:16px" alt="SMARTFLOW"></div>
+    <div class="welcome-title fade-up d1">SMARTFLOW</div>
+    <div class="welcome-sub fade-up d2">בחר פרופיל או צור חדש</div>
+    <div class="profile-card-select fade-up d3">
+      ${ids.map(id=>{const p=ps[id];return`
+        <div class="profile-option" onclick="selectProfile('${id}')">
+          <div class="profile-avatar" style="background:${p.color}">${p.name.charAt(0)}</div>
+          <div style="flex:1">
+            <div class="profile-name">${p.name} ${p.mode==='couple'?'<span class="couple-badge">💕 זוגי</span>':''}</div>
+            <div class="profile-meta">${(p.transactions||[]).length} רשומות</div>
+          </div>
+          <button onclick="event.stopPropagation();if(confirm('למחוק?')){delProfileRefresh('${id}')}" style="background:none;border:none;color:var(--text3);font-size:14px;cursor:pointer;padding:6px">🗑</button>
+        </div>`;}).join('')}
+      <button class="new-profile-btn" onclick="S.screen='create';S.newName='';S.newMode='personal';S.partnerCode='';render()">➕ פרופיל חדש</button>
+    </div>
+  </div>`;
+}
+
+function renderCreate(){
+  return`<div class="create-profile fade-up">
+    <div style="text-align:center;margin-bottom:24px">
+      <div style="margin-bottom:4px"><img src="${LOGO_MD}" style="width:64px;height:64px;border-radius:14px" alt="SMARTFLOW"></div>
+      <div class="create-title">יצירת פרופיל</div>
+      <div class="create-sub">הגדר את הפרופיל שלך</div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">שם</label>
+      <input class="form-input" placeholder="הכנס את שמך..." value="${S.newName}" oninput="S.newName=this.value" id="nameInput">
+    </div>
+    <div class="form-group">
+      <label class="form-label">צבע אווטאר</label>
+      <div class="avatar-picker">
+        ${AVATAR_COLORS.map(c=>`<div class="avatar-choice ${S.newColor===c?'active':''}" style="background:${c}" onclick="S.newColor='${c}';render()">${S.newColor===c?'✓':''}</div>`).join('')}
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">מצב שימוש</label>
+      <div class="mode-toggle">
+        <div class="mode-card ${S.newMode==='personal'?'active':''}" onclick="S.newMode='personal';render()">
+          <div class="mode-icon">👤</div><div class="mode-label">אישי</div>
+          <div class="mode-desc">ניהול הכנסות והוצאות שלך</div>
+        </div>
+        <div class="mode-card ${S.newMode==='couple'?'active':''}" onclick="S.newMode='couple';render()">
+          <div class="mode-icon">💕</div><div class="mode-label">זוגי</div>
+          <div class="mode-desc">שיתוף עם בן/בת הזוג</div>
+        </div>
+      </div>
+    </div>
+    ${S.newMode==='couple'?`
+      <div class="chart-card fade-up" style="margin-bottom:18px">
+        <div class="chart-title">💕 חיבור לבן/בת זוג</div>
+        <div style="font-size:12px;color:var(--text2);margin-bottom:14px;line-height:1.6">
+          אם לבן/בת הזוג כבר יש פרופיל <strong>באותו מכשיר</strong> — הזן/י את הקוד שלו/ה.<br>אם לא — השאר/י ריק ושתף/י את הקוד שתקבל/י.
+        </div>
+        <div class="form-group" style="margin-bottom:0">
+          <label class="form-label">קוד בן/בת זוג (אופציונלי)</label>
+          <input class="form-input" placeholder="הכנס קוד..." value="${S.partnerCode}" oninput="S.partnerCode=this.value.toUpperCase()" style="text-align:center;font-size:18px;letter-spacing:4px;font-family:monospace">
+        </div>
+      </div>`:''}
+    <button class="primary-btn" onclick="handleCreate()" ${S.newName.trim()?'':'disabled'}>🚀 צור פרופיל</button>
+    ${Object.keys(lp()).length>0?`<button class="secondary-btn" onclick="S.screen='welcome';render()">← חזרה</button>`:''}
+  </div>`;
+}
+
+function handleCreate(){if(!S.newName.trim())return;createProfile(S.newName.trim(),S.newColor,S.newMode,S.partnerCode.trim()||null);S.screen='main';S.tab='dashboard';render();}
+function selectProfile(id){sai(id);S.screen='main';S.tab='dashboard';S.filter='all';S.search='';render();}
+function delProfileRefresh(id){delProfile(id);const ps=lp();S.screen=Object.keys(ps).length>0?'welcome':'create';render();}
+function switchProfile(){localStorage.removeItem(ACTIVE_KEY);S.screen='welcome';render();}
+
+function renderMain(){
+  const pid=gai(),p=gp(pid);
+  if(!p){S.screen='welcome';render();return;}
+  const partner=getPartner(pid),txs=allTx(pid),isC=p.mode==='couple';
+  const inc=txs.filter(t=>t.type==='income').reduce((s,t)=>s+t.amount,0);
+  const exp=txs.filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount,0);
+  const bal=inc-exp;
+  const catMap={};
+  txs.filter(t=>t.type==='expense').forEach(t=>{const i=ci(t.cat);if(!catMap[t.cat])catMap[t.cat]={id:t.cat,name:i.name,icon:i.icon,value:0};catMap[t.cat].value+=t.amount;});
+  const catArr=Object.values(catMap).sort((a,b)=>b.value-a.value);
+  const filt=txs.filter(t=>S.filter==='all'||t.type===S.filter).filter(t=>{if(!S.search)return true;const i=ci(t.cat);return t.desc.includes(S.search)||i.name.includes(S.search);}).sort((a,b)=>new Date(b.date)-new Date(a.date));
+  const recent=[...txs].sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,5);
+  const ps=lp(),init=p.name.charAt(0);
+
+  document.getElementById('app').innerHTML=`
+    <div class="app">
+      <div class="header fade-up">
+        <div class="header-right">
+          <img src="${LOGO_SM}" style="width:32px;height:32px;border-radius:8px" alt="SF"><div class="header-avatar" style="background:${p.color}" onclick="switchProfile()">${init}</div>
+          <div><div class="logo">SMARTFLOW</div><div class="logo-sub">שלום, ${p.name} ${isC?'💕':''}</div></div>
+        </div>
+      </div>
+
+      ${S.showInstall?`<div class="install-banner"><div style="font-size:24px">📲</div><div style="flex:1"><div style="font-size:13px;font-weight:600">התקן את SMARTFLOW</div><div style="font-size:10px;color:var(--text3)">הוסף למסך הבית</div></div><button class="install-btn" onclick="handleInstall()">התקן</button><button style="background:none;border:none;color:var(--text3);cursor:pointer;font-size:14px;padding:4px" onclick="S.showInstall=false;render()">✕</button></div>`:''}
+
+      ${isC?`<div class="partner-banner fade-up">
+        <div class="partner-avatars">
+          <div class="partner-av" style="background:${p.color}">${init}</div>
+          ${partner?`<div class="partner-av" style="background:${partner.color}">${partner.name.charAt(0)}</div>`:`<div class="partner-av" style="background:var(--text3)">?</div>`}
+        </div>
+        <div class="partner-text">
+          <div class="partner-title">${partner?`${p.name} & ${partner.name}`:'ממתין לבן/בת זוג'}</div>
+          <div class="partner-sub">${partner?'הנתונים משותפים ✓':`קוד: ${p.code}`}</div>
+        </div>
+      </div>`:''}
+
+      <div class="stats">
+        <div class="stat-card fade-up"><div class="stat-bar" style="background:linear-gradient(90deg,${bal>=0?'var(--green)':'var(--red)'},transparent)"></div><div class="stat-icon">💰</div><div class="stat-label">יתרה</div><div class="stat-value" style="color:${bal>=0?'var(--green)':'var(--red)'}">${fm(bal)}</div></div>
+        <div class="stat-card fade-up d1"><div class="stat-bar" style="background:linear-gradient(90deg,var(--green),transparent)"></div><div class="stat-icon">📈</div><div class="stat-label">הכנסות</div><div class="stat-value" style="color:var(--green)">${fm(inc)}</div></div>
+        <div class="stat-card fade-up d2"><div class="stat-bar" style="background:linear-gradient(90deg,var(--red),transparent)"></div><div class="stat-icon">📉</div><div class="stat-label">הוצאות</div><div class="stat-value" style="color:var(--red)">${fm(exp)}</div></div>
+      </div>
+
+      ${S.tab==='dashboard'?dashTab(catArr,recent,ps,pid):''}
+      ${S.tab==='transactions'?txTab(filt,ps,pid):''}
+      ${S.tab==='settings'?settingsTab(p,pid):''}
+    </div>
+    <button class="fab" onclick="openModal()">+</button>
+    <nav class="bottom-nav">
+      <button class="nav-btn ${S.tab==='dashboard'?'active':''}" onclick="S.tab='dashboard';render()"><span class="nav-icon">📊</span>סקירה</button>
+      <button class="nav-btn ${S.tab==='transactions'?'active':''}" onclick="S.tab='transactions';render()"><span class="nav-icon">📋</span>רשומות</button>
+      <button class="nav-btn ${S.tab==='settings'?'active':''}" onclick="S.tab='settings';render()"><span class="nav-icon">⚙️</span>הגדרות</button>
+    </nav>
+    ${S.showModal?addModal():''}
+    ${S.showAdminLogin?`<div class="modal-overlay" onclick="closeAdminLogin()"><div class="modal-sheet" onclick="event.stopPropagation()" style="max-width:380px">
+      <div class="modal-handle"></div>
+      <div style="text-align:center;margin-bottom:20px"><div style="font-size:32px;margin-bottom:6px">🔒</div><div class="modal-title" style="margin-bottom:4px">כניסת מנהל</div><div style="font-size:12px;color:var(--text3)">הזן סיסמת אדמין</div></div>
+      <div class="form-group"><input class="form-input" type="password" placeholder="סיסמה..." id="adminPassInput" onkeydown="if(event.key==='Enter')tryAdminLogin()" style="text-align:center;font-size:18px;letter-spacing:2px"></div>
+      <button class="submit-btn" onclick="tryAdminLogin()" style="background:linear-gradient(135deg,var(--orange),#FFB347)">🔓 כניסה</button>
+    </div></div>`:''}`;
+
+  if(S.tab==='dashboard')requestAnimationFrame(()=>{drawPie('pieC',catArr);drawBar('barC',txs);});
+}
+
+function dashTab(catArr,recent,ps,pid){
+  return`
+    <div class="chart-card fade-up d2"><div class="chart-title">📊 התפלגות הוצאות</div>
+      ${catArr.length?`<canvas id="pieC"></canvas><div class="legend">${catArr.map((d,i)=>`<div class="legend-item"><div class="legend-dot" style="background:${PIE_COLORS[i%PIE_COLORS.length]}"></div><span class="legend-name">${d.icon} ${d.name}</span><span class="legend-val">${fm(d.value)}</span></div>`).join('')}</div>`:'<div class="empty-state"><div class="empty-icon">📊</div>אין הוצאות</div>'}
+    </div>
+    <div class="chart-card fade-up d3"><div class="chart-title">📅 סיכום חודשי</div><canvas id="barC"></canvas></div>
+    <div class="chart-card fade-up d4"><div class="chart-title">🕐 פעולות אחרונות</div>
+      ${recent.length?recent.map(t=>txRow(t,ps,pid,false)).join(''):'<div class="empty-state"><div class="empty-icon">📭</div>אין פעולות</div>'}
+    </div>`;
+}
+
+function txTab(filt,ps,pid){
+  return`
+    <input class="search-bar fade-up" placeholder="🔍 חיפוש..." value="${S.search}" oninput="S.search=this.value;render()">
+    <div class="filter-bar fade-up d1">${[['all','הכל'],['income','הכנסות'],['expense','הוצאות']].map(([v,l])=>`<button class="filter-btn ${S.filter===v?'active':''}" onclick="S.filter='${v}';render()">${l}</button>`).join('')}</div>
+    <div class="tx-list fade-up d2">${filt.length?filt.map(t=>txRow(t,ps,pid,true)).join(''):'<div class="empty-state"><div class="empty-icon">📭</div>לא נמצאו רשומות</div>'}</div>
+    ${filt.length?`<div class="tx-count">${filt.length} רשומות</div>`:''}`;
+}
+
+function txRow(t,ps,cpid,del){
+  const i=ci(t.cat),isI=t.type==='income',o=ps[t.owner],isC=ps[cpid]&&ps[cpid].mode==='couple';
+  return`<div class="tx-row">
+    <div class="tx-icon" style="background:${isI?'var(--green-dim)':'var(--red-dim)'}">${i.icon}</div>
+    <div class="tx-info">
+      <div class="tx-desc">${t.desc}</div>
+      <div class="tx-meta">
+        <span class="badge" style="background:${isI?'var(--green-dim)':'var(--red-dim)'};color:${isI?'var(--green)':'var(--red)'}">${isI?'הכנסה':'הוצאה'}</span>
+        ${i.name} · ${fd(t.date)}
+        ${isC&&o?`<span class="tx-owner-dot" style="background:${o.color}" title="${o.name}">${o.name.charAt(0)}</span>`:''}
+      </div>
+    </div>
+    <span class="tx-amount" style="color:${isI?'var(--green)':'var(--red)'}">${isI?'+':'−'}${fm(t.amount)}</span>
+    ${del?`<button class="tx-delete" onclick="event.stopPropagation();handleDel('${t.id}')">🗑</button>`:''}
+  </div>`;
+}
+
+function settingsTab(p,pid){
+  const partner=getPartner(pid),isC=p.mode==='couple';
+  return`
+    <div class="chart-card fade-up" style="text-align:center;padding:24px">
+      <div style="width:60px;height:60px;border-radius:50%;background:${p.color};margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;color:#fff">${p.name.charAt(0)}</div>
+      <div style="font-size:18px;font-weight:700">${p.name}</div>
+      <div style="font-size:12px;color:var(--text3);margin-top:4px">${isC?'💕 מצב זוגי':'👤 מצב אישי'}</div>
+    </div>
+    ${isC?`<div class="chart-card fade-up d1"><div class="chart-title">💕 שיתוף זוגי</div>
+      ${partner?`<div style="display:flex;align-items:center;gap:12px"><div style="width:40px;height:40px;border-radius:50%;background:${partner.color};display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:#fff">${partner.name.charAt(0)}</div><div><div style="font-size:14px;font-weight:600">מחובר/ת ל${partner.name}</div><div style="font-size:11px;color:var(--text3)">הנתונים משותפים ✓</div></div></div>`
+      :`<div style="font-size:13px;color:var(--text2);margin-bottom:12px;line-height:1.6">שתפו את הקוד עם בן/בת הזוג.<br>בעת יצירת פרופיל חדש <strong>באותו מכשיר</strong>, יש להזין את הקוד.</div>
+        <div class="share-code-box"><div class="share-code-label">הקוד שלך</div><div class="share-code">${p.code}</div><button class="copy-btn" onclick="copyCode('${p.code}')">📋 העתק קוד</button></div>`}
+    </div>`:''}
+    <div class="settings-card fade-up ${isC?'d2':'d1'}">
+      <div class="settings-item" onclick="exportCSV()"><span class="settings-icon">📥</span><span class="settings-label">ייצוא נתונים (CSV)</span><span class="settings-arrow">←</span></div>
+      <div class="settings-item" onclick="switchProfile()"><span class="settings-icon">🔄</span><span class="settings-label">החלפת פרופיל</span><span class="settings-arrow">←</span></div>
+      <div class="settings-item" onclick="clearMyData()"><span class="settings-icon">🗑</span><span class="settings-label">מחיקת כל הנתונים שלי</span><span class="settings-arrow">←</span></div>
+      <div class="settings-item" onclick="openAdminLogin()" style="border-top:1px solid var(--border)"><span class="settings-icon">🔒</span><span class="settings-label" style="color:var(--orange)">כניסת מנהל</span><span class="settings-arrow">←</span></div>
+    </div>
+    <div class="chart-card fade-up ${isC?'d3':'d2'}" style="padding:20px">
+      <div style="text-align:center;margin-bottom:14px"><div style="font-size:36px">📲</div><div style="font-size:16px;font-weight:700;margin-top:6px">התקן כאפליקציה בטלפון</div><div style="font-size:12px;color:var(--text3);margin-top:4px">גישה מהירה מהמסך הראשי, בלי דפדפן</div></div>
+      <div style="background:var(--bg);border-radius:12px;padding:14px 16px;margin-bottom:10px">
+        <div style="font-size:13px;font-weight:600;color:var(--green);margin-bottom:8px">🍎 אייפון (Safari)</div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.8">1. פתח את הלינק ב-<strong>Safari</strong><br>2. לחץ על כפתור השיתוף ⬆️ למטה<br>3. גלול ובחר <strong>"הוסף למסך הבית"</strong><br>4. לחץ <strong>"הוסף"</strong> — זהו!</div>
+      </div>
+      <div style="background:var(--bg);border-radius:12px;padding:14px 16px">
+        <div style="font-size:13px;font-weight:600;color:var(--accent);margin-bottom:8px">🤖 אנדרואיד (Chrome)</div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.8">1. פתח את הלינק ב-<strong>Chrome</strong><br>2. לחץ על ⋮ (שלוש נקודות) למעלה<br>3. בחר <strong>"התקן אפליקציה"</strong> או <strong>"הוסף למסך הבית"</strong><br>4. לחץ <strong>"התקן"</strong> — זהו!</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:16px"><div><img src="${LOGO_SM}" style="width:36px;height:36px;border-radius:8px" alt="SF"></div><div style="font-size:13px;font-weight:700;margin-top:2px">SMARTFLOW v2</div><div style="font-size:10px;color:var(--text3)">פרופילים + שיתוף זוגי</div></div>`;
+}
+
+function addModal(){
+  const cats=CATS[S.formType];
+  return`<div class="modal-overlay" onclick="closeModal()"><div class="modal-sheet" onclick="event.stopPropagation()">
+    <div class="modal-handle"></div><div class="modal-title">הוספת רשומה</div>
+    <div class="type-toggle">
+      <button class="type-btn ${S.formType==='expense'?'active-expense':''}" onclick="S.formType='expense';S.formCat=CATS.expense[0].id;render()">הוצאה</button>
+      <button class="type-btn ${S.formType==='income'?'active-income':''}" onclick="S.formType='income';S.formCat=CATS.income[0].id;render()">הכנסה</button>
+    </div>
+    <div class="form-group"><label class="form-label">סכום (₪)</label><input class="form-input" type="number" inputmode="decimal" placeholder="0" value="${S.formAmount}" oninput="S.formAmount=this.value" id="amtIn"></div>
+    <div class="form-group"><label class="form-label">קטגוריה</label><div class="cat-grid">${cats.map(c=>`<button class="cat-btn ${S.formCat===c.id?'active':''}" onclick="S.formCat='${c.id}';render()"><span class="cat-emoji">${c.icon}</span>${c.name}</button>`).join('')}</div></div>
+    <div class="form-group"><label class="form-label">תיאור</label><input class="form-input" placeholder="תיאור קצר..." value="${S.formDesc}" oninput="S.formDesc=this.value"></div>
+    <div class="form-group"><label class="form-label">תאריך</label><input class="form-input" type="date" value="${S.formDate}" oninput="S.formDate=this.value"></div>
+    <button class="submit-btn" onclick="handleAdd()">הוסף ${S.formType==='income'?'הכנסה':'הוצאה'}</button>
+  </div></div>`;
+}
+
+function openModal(){S.showModal=true;S.formType='expense';S.formCat='food';S.formAmount='';S.formDesc='';S.formDate=new Date().toISOString().split('T')[0];render();setTimeout(()=>{const i=document.getElementById('amtIn');if(i)i.focus();},100);}
+function closeModal(){S.showModal=false;render();}
+
+function handleAdd(){
+  const amt=parseFloat(S.formAmount);if(!amt||amt<=0)return;
+  addTx(gai(),{id:gid(),type:S.formType,amount:amt,cat:S.formCat,desc:S.formDesc||ci(S.formCat).name,date:S.formDate});
+  S.showModal=false;render();
+}
+function handleDel(txId){delTx(gai(),txId);render();}
+function clearMyData(){if(!confirm('למחוק את כל הנתונים שלך?'))return;const ps=lp(),pid=gai();if(ps[pid]){ps[pid].transactions=[];sp(ps);}render();}
+
+function exportCSV(){
+  const pid=gai(),txs=allTx(pid),ps=lp(),BOM='\uFEFF';
+  const header='שם,סוג,סכום,קטגוריה,תיאור,תאריך\n';
+  const rows=txs.map(t=>{const o=ps[t.owner];return`${o?o.name:''},${t.type==='income'?'הכנסה':'הוצאה'},${t.amount},${ci(t.cat).name},${t.desc},${t.date}`;}).join('\n');
+  const blob=new Blob([BOM+header+rows],{type:'text/csv;charset=utf-8;'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='smartflow_export.csv';a.click();
+}
+
+function copyCode(code){
+  navigator.clipboard.writeText(code).then(()=>{
+    const btn=event.target;btn.textContent='✓ הועתק!';setTimeout(()=>{btn.textContent='📋 העתק קוד';},1500);
+  }).catch(()=>{prompt('העתק את הקוד:',code);});
+}
+
+// Canvas
+function drawPie(id,data){
+  const c=document.getElementById(id);if(!c||!data.length)return;
+  const ctx=c.getContext('2d'),dpr=window.devicePixelRatio||1,w=c.parentElement.clientWidth,h=190;
+  c.width=w*dpr;c.height=h*dpr;c.style.width=w+'px';c.style.height=h+'px';ctx.scale(dpr,dpr);
+  const total=data.reduce((s,d)=>s+d.value,0),cx=w/2,cy=h/2,r=68,ir=44;
+  let angle=-Math.PI/2;
+  data.forEach((d,i)=>{const sl=(d.value/total)*Math.PI*2;ctx.beginPath();ctx.arc(cx,cy,r,angle,angle+sl);ctx.arc(cx,cy,ir,angle+sl,angle,true);ctx.closePath();ctx.fillStyle=PIE_COLORS[i%PIE_COLORS.length];ctx.fill();angle+=sl;});
+  ctx.fillStyle='#E8E8F0';ctx.font='700 17px Rubik';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(fm(total),cx,cy-7);
+  ctx.font='400 10px Rubik';ctx.fillStyle='#8888A0';ctx.fillText('סה"כ הוצאות',cx,cy+11);
+}
+
+function drawBar(id,txs){
+  const c=document.getElementById(id);if(!c)return;
+  const ctx=c.getContext('2d'),dpr=window.devicePixelRatio||1,w=c.parentElement.clientWidth,h=180;
+  c.width=w*dpr;c.height=h*dpr;c.style.width=w+'px';c.style.height=h+'px';ctx.scale(dpr,dpr);
+  const map={};txs.forEach(t=>{const m=new Date(t.date).getMonth();if(!map[m])map[m]={month:m,income:0,expense:0};map[m][t.type]+=t.amount;});
+  const ms=Object.values(map).sort((a,b)=>a.month-b.month);if(!ms.length)return;
+  const mx=Math.max(...ms.map(m=>Math.max(m.income,m.expense))),cH=h-35,cY=8,bW=Math.min(24,(w-40)/ms.length/2.5),gap=(w-20)/ms.length;
+  ms.forEach((m,i)=>{const x=10+i*gap+gap/2,hI=mx?(m.income/mx)*cH:0,hE=mx?(m.expense/mx)*cH:0;
+    ctx.fillStyle='#2DD4A8';ctx.beginPath();rr(ctx,x-bW-2,cY+cH-hI,bW,hI,4);ctx.fill();
+    ctx.fillStyle='#FF6B6B';ctx.beginPath();rr(ctx,x+2,cY+cH-hE,bW,hE,4);ctx.fill();
+    ctx.fillStyle='#55556A';ctx.font='400 10px Rubik';ctx.textAlign='center';ctx.fillText(MONTHS[m.month],x,h-4);});
+  ctx.fillStyle='#2DD4A8';ctx.fillRect(w-95,4,8,8);ctx.fillStyle='#8888A0';ctx.font='400 10px Rubik';ctx.textAlign='right';ctx.fillText('הכנסות',w-99,12);
+  ctx.fillStyle='#FF6B6B';ctx.fillRect(w-44,4,8,8);ctx.fillStyle='#8888A0';ctx.fillText('הוצאות',w-48,12);
+}
+function rr(ctx,x,y,w,h,r){if(h<=0)return;ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);ctx.lineTo(x+w,y+h);ctx.lineTo(x,y+h);ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);}
+
+// ─── Admin Panel ───
+function tryAdminLogin(){
+  const inp=document.getElementById('adminPassInput');
+  if(inp&&inp.value===ADMIN_PASS){S.adminAuth=true;S.screen='admin';S.showAdminLogin=false;render();}
+  else{alert('סיסמה שגויה');}}
+
+function openAdminLogin(){S.showAdminLogin=true;render();}
+function closeAdminLogin(){S.showAdminLogin=false;render();}
+function exitAdmin(){S.screen='main';S.adminAuth=false;S.tab='settings';render();}
+
+function renderAdmin(){
+  const ps=lp(),ids=Object.keys(ps).sort((a,b)=>(ps[b].created||0)-(ps[a].created||0));
+  let totalIncome=0,totalExpense=0,totalTx=0;
+  ids.forEach(id=>{const p=ps[id];(p.transactions||[]).forEach(t=>{totalTx++;if(t.type==='income')totalIncome+=t.amount;else totalExpense+=t.amount;});});
+  return`<div class="app">
+    <div class="header fade-up">
+      <div class="header-right">
+        <img src="${LOGO_SM}" style="width:32px;height:32px" alt="SF">
+        <div><div class="logo">SMARTFLOW</div><div class="logo-sub" style="color:var(--orange)">🔒 פאנל ניהול</div></div>
+      </div>
+      <button class="filter-btn" style="padding:8px 14px;border-color:var(--red);color:var(--red)" onclick="exitAdmin()">יציאה ✕</button>
+    </div>
+
+    <!-- Admin Stats -->
+    <div class="stats fade-up">
+      <div class="stat-card"><div class="stat-bar" style="background:linear-gradient(90deg,var(--accent),transparent)"></div><div class="stat-icon">👥</div><div class="stat-label">משתמשים</div><div class="stat-value" style="color:var(--accent)">${ids.length}</div></div>
+      <div class="stat-card"><div class="stat-bar" style="background:linear-gradient(90deg,var(--green),transparent)"></div><div class="stat-icon">📈</div><div class="stat-label">סה"כ הכנסות</div><div class="stat-value" style="color:var(--green)">${fm(totalIncome)}</div></div>
+      <div class="stat-card"><div class="stat-bar" style="background:linear-gradient(90deg,var(--red),transparent)"></div><div class="stat-icon">📉</div><div class="stat-label">סה"כ הוצאות</div><div class="stat-value" style="color:var(--red)">${fm(totalExpense)}</div></div>
+    </div>
+
+    <div class="chart-card fade-up d1" style="padding:14px 16px;margin-bottom:8px;background:var(--accent-dim);border-color:rgba(108,99,255,0.25)">
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div style="font-size:13px;font-weight:600;color:var(--accent)">📊 סה"כ רשומות: ${totalTx}</div>
+        <div style="font-size:13px;font-weight:600;color:${totalIncome-totalExpense>=0?'var(--green)':'var(--red)'}">יתרה כוללת: ${fm(totalIncome-totalExpense)}</div>
+      </div>
+    </div>
+
+    <!-- Users List -->
+    <div class="chart-card fade-up d2">
+      <div class="chart-title">👥 כל המשתמשים</div>
+      ${ids.length===0?'<div class="empty-state"><div class="empty-icon">📭</div>אין משתמשים</div>':
+        ids.map(id=>{
+          const p=ps[id];
+          const txs=p.transactions||[];
+          const inc=txs.filter(t=>t.type==='income').reduce((s,t)=>s+t.amount,0);
+          const exp=txs.filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount,0);
+          const bal=inc-exp;
+          const lastTx=txs.length?txs.sort((a,b)=>new Date(b.date)-new Date(a.date))[0]:null;
+          const partner=getPartner(id);
+          return`<div style="display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--border)">
+            <div style="width:44px;height:44px;border-radius:50%;background:${p.color};display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:#fff;flex-shrink:0">${p.name.charAt(0)}</div>
+            <div style="flex:1;min-width:0">
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+                <span style="font-size:15px;font-weight:600">${p.name}</span>
+                ${p.mode==='couple'?'<span class="couple-badge" style="font-size:9px;padding:2px 6px">💕 זוגי</span>':''}
+              </div>
+              <div style="font-size:11px;color:var(--text3);display:flex;gap:10px;flex-wrap:wrap">
+                <span>${txs.length} רשומות</span>
+                <span style="color:var(--green)">+${fm(inc)}</span>
+                <span style="color:var(--red)">−${fm(exp)}</span>
+                <span style="color:${bal>=0?'var(--green)':'var(--red)'}">יתרה: ${fm(bal)}</span>
+              </div>
+              ${partner?`<div style="font-size:10px;color:var(--pink);margin-top:2px">💕 משותף עם ${partner.name}</div>`:''}
+              ${lastTx?`<div style="font-size:10px;color:var(--text3);margin-top:2px">פעולה אחרונה: ${lastTx.desc} (${fd(lastTx.date)})</div>`:''}
+            </div>
+          </div>`;
+        }).join('')}
+    </div>
+
+    <div style="text-align:center;margin-top:20px">
+      <img src="${LOGO_SM}" style="width:36px;height:36px" alt="SF">
+      <div style="font-size:13px;font-weight:700;margin-top:4px">SMARTFLOW Admin</div>
+      <div style="font-size:10px;color:var(--text3)">פאנל ניהול</div>
+    </div>
+  </div>`;
+}
+
+if('serviceWorker'in navigator){const sw=`const C='sf-v2';self.addEventListener('install',e=>{e.waitUntil(caches.open(C).then(c=>c.addAll(['./'])));self.skipWaiting();});self.addEventListener('activate',e=>{e.waitUntil(clients.claim());});self.addEventListener('fetch',e=>{e.respondWith(fetch(e.request).catch(()=>caches.match(e.request)));});`;navigator.serviceWorker.register(URL.createObjectURL(new Blob([sw],{type:'application/javascript'}))).catch(()=>{});}
+
+init();
+</script>
+</body>
+</html>
